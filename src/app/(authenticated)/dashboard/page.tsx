@@ -1,9 +1,7 @@
-import { userAuthenticationCheck } from "@/app/actions/userAuthenticationCheck";
 import DashboardPage from "@/components/domain/(authenticated)/dashboard/DashboardPage";
 
-const Dashboard = async () => {
-  await userAuthenticationCheck();
+const Page = () => {
   return <DashboardPage />;
 };
 
-export default Dashboard;
+export default Page;

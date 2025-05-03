@@ -3,19 +3,18 @@
 import PageContainer from "@/components/common/PageContainer";
 import { authClient } from "@/lib/auth-client";
 import { Box, Button } from "@mui/material";
-import { useRouter } from "next/navigation";
-const DashboardPage = () => {
-  const router = useRouter();
-  const handleSignOut = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          router.push("/login"); // redirect to login page
-        },
-      },
-    });
-  };
 
+const LoginPage = () => {
+  async function handleGoogleSignIn() {
+    try {
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/dashboard",
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  }
   return (
     <PageContainer>
       <Box
@@ -26,12 +25,12 @@ const DashboardPage = () => {
           justifyContent: "center",
         }}
       >
-        <Button variant="contained" onClick={handleSignOut}>
-          Logout
+        <Button variant="contained" onClick={handleGoogleSignIn}>
+          Googleログイン
         </Button>
       </Box>
     </PageContainer>
   );
 };
 
-export default DashboardPage;
+export default LoginPage;
